@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kovendhan-Swetha-Marriage</title>
+    <link rel="icon" href="./favicon.ico">
+
+    <!-- Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRG8CMF2K9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JRG8CMF2K9');
+    </script>
+
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Berkshire+Swash&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden; /* prevent page scroll on mobile */
+        }
+
+        .enable-scroll,
+        .enable-scroll body {
+            overflow-y: auto;
+            height: auto;
+        }
+
+        .enable-scroll .invitation-container {
+            height: auto;
+            min-height: 100vh;
+        }
+
+        /* Full-page loader */
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, #fef9f3 0%, #fdf6ed 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader-wrap {
+            position: relative;
+            width: 88px;
+            height: 88px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-svg {
+            width: 44px;
+            height: 44px;
+            display: block;
+            animation: pulse-logo 2.2s ease-in-out infinite;
+        }
+
+        .loader-spinner {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid rgba(139, 26, 26, 0.15);
+            border-top-color: #8b1a1a;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse-logo {
+            0% { transform: scale(1); opacity: 0.85; }
+            50% { transform: scale(1.08); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.85; }
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            background-color: #fdf3e8; /* Fallback color */
+            background: linear-gradient(180deg, 
+                #fef9f3 0%, 
+                #fdf6ed 20%, 
+                #fcf3e8 40%,
+                #fdf5eb 60%,
+                #fef8f0 80%,
+                #fff9f2 100%
+            );
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .invitation-container {
+            /* mobile-card style: fixed mobile width so desktop looks like a vertical card */
+            width: 360px;
+            max-width: 360px;
+            height: min(820px, 96vh);
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            background: linear-gradient(180deg, 
+                #fef9f3 0%, 
+                #fdf6ed 15%, 
+                #fcf3e8 35%,
+                #fdf5eb 55%,
+                #fef8f0 75%,
+                #fff9f2 100%
+            );
+            box-shadow: 0 20px 60px rgba(20, 20, 20, 0.12);
+            margin-top: 28px;
+        }
+
+        /* Mandala Styles */
+        .mandala {
+            position: absolute;
+            pointer-events: none;
+            z-index: 4; /* bottom of requested stack */
+        }
+
+        .mandala-left {
+            left: -110px;
+            top: 60px;
+            width: 220px;
+            height: 220px;
+            opacity: 0.35;
+            animation: rotateMandala 60s linear infinite;
+        }
+
+        .mandala-right {
+            right: -110px;
+            top: 60px;
+            width: 220px;
+            height: 220px;
+            opacity: 0.35;
+            animation: rotateMandala 55s linear infinite reverse;
+        }
+
+        @keyframes rotateMandala {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .mandala img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Content Area */
+        .content {
+            position: relative;
+            z-index: 28; /* keep text/buttons above art layers */
+            padding: 50px 30px 0;
+            text-align: center;
+        }
+
+        /* Text Animation Classes */
+        .animate-text {
+            opacity: 0;
+            transform: translateY(25px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Invitation Text */
+        .invitation-intro {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            font-style: normal;
+            color: #5a4a3a;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            animation-delay: 0.2s;
+        }
+
+        .couple-names {
+            font-family: 'Berkshire Swash', cursive;
+            font-size: 2.6rem;
+            color: #8b1a1a;
+            margin: 6px 0 6px;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(139, 26, 26, 0.1);
+            animation-delay: 0.5s;
+            white-space: nowrap;
+        }
+
+        /* Date card (month/day/year with side labels) */
+        .date-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            color: #4a3a2a;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-size: 0.82rem;
+        }
+
+        .date-left, .date-right {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.72rem;
+            color: #6a5a4a;
+            font-weight: 700;
+        }
+
+        .date-center {
+            text-align: center;
+            width: 86px;
+            position: relative;
+            padding: 4px 8px;
+        }
+
+        /* hide old pseudo separators - replaced with rotated divider elements */
+        .date-center::before,
+        .date-center::after {
+            display: none;
+        }
+
+        .date-center .month {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.64rem;
+            letter-spacing: 1.8px;
+            color: #6a5a4a;
+            font-weight: 700;
+        }
+
+        .date-center .day {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2b2b2b;
+            margin: 4px 0;
+            line-height: 1;
+        }
+
+        .date-center .year {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.64rem;
+            color: #6a5a4a;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .venue-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #8b1a1a;
+            margin-bottom: 8px;
+            animation-delay: 1s;
+        }
+
+        .venue-address {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: #6a5a4a;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            animation-delay: 1.2s;
+        }
+
+        /* Buttons Container */
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            animation-delay: 1.4s;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 1.1px;
+            padding: 8px 18px;
+            border: 1.5px solid #c9a86c;
+            background: transparent; /* outlined style */
+            color: #6b4423;
+            border-radius: 999px; /* pill / circular edges */
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.28s ease;
+            box-shadow: none;
+            position: relative;
+            overflow: hidden; /* contain shimmer strip inside button */
+            text-transform: uppercase;
+            white-space: nowrap;
+            display: inline-block;
+            pointer-events: auto;
+            backface-visibility: hidden;
+            -webkit-font-smoothing: antialiased;
+            transform: translateZ(0); /* avoid hover flicker on desktop */
+            will-change: transform, box-shadow, background;
+            z-index: 1; /* keep pseudo-element under text */
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transition: left 0.5s ease;
+            pointer-events: none; /* prevent hover jitter */
+            z-index: 0;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #f5dcb8 0%, #e6c58c 100%);
+            box-shadow: 0 5px 15px rgba(201, 168, 108, 0.4);
+            border-color: #b59255;
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(139, 26, 26, 0.1);
+        }
+
+        /* RSVP Modal Styles */
+        .rsvp-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .rsvp-modal.active {
+            display: flex;
+        }
+
+        .rsvp-modal-content {
+            background: linear-gradient(180deg, #fef9f3 0%, #fdf6ed 100%);
+            border-radius: 18px;
+            padding: 35px 25px;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .rsvp-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #5a3e1b;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rsvp-modal-close:hover {
+            color: #8b1a1a;
+        }
+
+        .rsvp-modal h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: #8b1a1a;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .rsvp-modal-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: #7a5c3a;
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .rsvp-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5a3e1b;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            padding: 9px 11px;
+            border: 1px solid #d4a574;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #5a3e1b;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #c9a86c;
+            box-shadow: 0 0 8px rgba(201, 168, 108, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .form-group-inline {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .form-group-inline .form-group {
+            gap: 0;
+        }
+
+        .rsvp-form-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .rsvp-form-buttons button {
+            flex: 1;
+            padding: 9px 16px;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border: 1px solid #c9a86c;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .rsvp-form-buttons .submit-btn {
+            background: linear-gradient(135deg, #e8d4b0 0%, #d9c8a0 100%);
+            color: #5a3e1b;
+        }
+
+        .rsvp-form-buttons .submit-btn:hover {
+            background: linear-gradient(135deg, #f5dcb8 0%, #e6c58c 100%);
+            box-shadow: 0 4px 12px rgba(201, 168, 108, 0.3);
+        }
+
+        .rsvp-form-buttons .cancel-btn {
+            background: transparent;
+            color: #7a5c3a;
+            border-color: #d4a574;
+        }
+
+        .rsvp-form-buttons .cancel-btn:hover {
+            background: rgba(212, 165, 116, 0.1);
+            border-color: #b59255;
+        }
+
+        /* Decorative Divider */
+        .divider {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #c9a86c, transparent);
+            margin: 0 auto 15px;
+            animation-delay: 0.7s;
+        }
+
+        /* Vertical variant of the decorative divider (used in date-card) */
+        .divider-vertical {
+            width: 2px;
+            height: 62px;
+            background: linear-gradient(180deg, transparent, #c9a86c, transparent);
+            margin: 0 10px;
+            display: inline-block;
+            align-self: center;
+        }
+
+        /* Bottom Section with Swing and Flowers */
+        .bottom-section {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            margin-top: auto;
+        }
+
+        /* Flower Background with Parallax */
+        .flower-background {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110%;
+            max-width: 600px;
+            z-index: 6; /* behind swing image, above mandala */
+            pointer-events: none;
+        }
+
+        .flower-background img {
+            width: 100%;
+            height: auto;
+            animation: floatFlowers 8s ease-in-out infinite;
+        }
+
+        @keyframes floatFlowers {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-12px) translateX(8px);
+            }
+            50% {
+                transform: translateY(-5px) translateX(-5px);
+            }
+            75% {
+                transform: translateY(-15px) translateX(5px);
+            }
+        }
+
+        /* Radha Krishna Swing */
+        .swing-container {
+            position: absolute;
+            top: -20px;
+            left: 40%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 360px;
+            z-index: 14; /* below petals set one, above petals set two */
+            transform-origin: top center;
+            perspective: 1000px;
+            overflow: visible;
+        }
+
+        .swing-wrapper {
+            animation: swingMotion 4s ease-in-out infinite;
+            transform-origin: top center;
+            position: relative;
+            width: 210%;
+            left : -45%;
+            top: -15px;
+        }
+
+        .android-nav-buttons .swing-wrapper {
+            top: -30px;
+        }
+
+        .swing-image {
+            position: relative;
+            margin-top: -8px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 120%;
+            max-width: 460px;
+            pointer-events: none;
+        }
+
+        .swing-wrapper::before {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            height: 40px;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, transparent 70%);
+            filter: blur(12px);
+            animation: shadowMotion 4s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .swing-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @keyframes swingMotion {
+            0% {
+                transform: translateZ(-80px) scaleZ(0.7);
+                filter: brightness(0.85);
+            }
+            50% {
+                transform: translateZ(80px) scaleZ(1.1);
+                filter: brightness(1.1);
+            }
+            100% {
+                transform: translateZ(-80px) scaleZ(0.7);
+                filter: brightness(0.85);
+            }
+        }
+
+        @keyframes shadowMotion {
+            0% {
+                opacity: 0.08;
+                width: 65%;
+                filter: blur(18px);
+            }
+            50% {
+                opacity: 0.35;
+                width: 90%;
+                filter: blur(8px);
+            }
+            100% {
+                opacity: 0.08;
+                width: 65%;
+                filter: blur(18px);
+            }
+        }
+
+        /* Decorative Mandala behind QR/Buttons */
+        .decorative-frame {
+            position: relative;
+            display: inline-block;
+            padding: 15px;
+            animation-delay: 1.3s;
+            /* keep frame above background so buttons are clickable */
+            z-index: 32; /* topmost buttons */
+            pointer-events: auto;
+        }
+
+        .decorative-frame::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: url('./mandalaOne.webp') center/contain no-repeat;
+            opacity: 0.12;
+            animation: rotateMandala 40s linear infinite;
+            /* keep pseudo behind the frame but not behind the whole page */
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 700px) {
+            html, body {
+                height: 100%;
+                overflow: hidden;
+            }
+            body {
+                align-items: center;
+            }
+            .invitation-container {
+                height: min(820px, 96vh);
+                margin-top: 0;
+            }
+            .flower-background {
+                bottom: 60px;
+            }
+            .bottom-petals-container {
+                bottom: 90px;
+                z-index: 8;
+            }
+            .venue-address {
+                font-size: 0.8rem;
+            }
+            .buttons-container {
+                flex-wrap: nowrap;
+                gap: 10px;
+            }
+            .btn {
+                padding: 8px 18px;
+                font-size: 0.74rem;
+            }
+        }
+
+        @media (max-width: 550px) {
+            .invitation-container {
+                width: 100%;
+                max-width: 100%;
+                height: 100vh; /* Fallback */
+                height: 100dvh; /* lock to viewport to avoid scroll */
+                border-radius: 0;
+                box-shadow: none;
+                margin-top: 0;
+            }
+            body {
+                align-items: flex-start;
+            }
+            .bottom-section {
+                height: 420px;
+            }
+            .swing-image { top: -12px; width: 110%; }
+        }
+
+        @media (max-width: 520px) {
+            .invitation-container {
+                max-width: 100%;
+            }
+
+            .content {
+                padding: 40px 20px 0;
+            }
+
+            .couple-names {
+                font-size: 2.01rem;
+            }
+
+            .invitation-intro {
+                font-size: 1.05rem;
+            }
+
+            .date-time {
+                font-size: 0.95rem;
+            }
+
+            .venue-name {
+                font-size: 1.2rem;
+            }
+
+            .venue-address {
+                font-size: 0.75rem;
+            }
+
+            .mandala-left {
+                left: -110px;
+                top: 60px;
+                width: 220px;
+                height: 220px;
+            }
+
+            .mandala-right {
+                right: -110px;
+                top: 60px;
+                width: 220px;
+                height: 220px;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                width: 140px;
+                padding: 8px 16px;
+                font-size: 0.73rem;
+                letter-spacing: 0.6px;
+            }
+
+            .bottom-section {
+                height: 450px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .couple-names {
+                font-size: 1.6rem;
+            }
+
+            .bottom-section {
+                height: 400px;
+            }
+        }
+
+        .page-loaded .animate-text {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .top-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #e8c4a8 20%, 
+                #d4a574 50%, 
+                #e8c4a8 80%, 
+                transparent 100%
+            );
+            opacity: 0.6;
+        }
+
+        .texture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            z-index: 1000;
+        }
+
+        .petal {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(ellipse at center, #f5c6d0 0%, #e8a0aa 100%);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 22; /* petals set one above swing */
+        }
+
+        .bottom-petals-container {
+            position: absolute;
+            left: 0;
+            bottom: 50px;
+            width: 100%;
+            height: 240px;
+            pointer-events: none;
+            z-index: 8; /* petals set two below swing, above mandala */
+        }
+
+        .bottom-petal {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            opacity: 0;
+            will-change: transform, opacity;
+            pointer-events: none;
+            transition: filter 0.3s, opacity 1s;
+            z-index: 8; /* petals set two below swing, above mandala */
+        }
+
+        @keyframes floatPetal {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg) scale(0.5);
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(400px) rotate(360deg) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-wrap" aria-label="Loading">
+            <img src="./loader.svg" alt="" class="loader-svg">
+            <div class="loader-spinner"></div>
+        </div>
+    </div>
+    <div class="texture-overlay"></div>
+    
+    <div class="invitation-container" id="invitation">
+        <div class="top-decoration"></div>
+        
+        <!-- Mandalas -->
+        <div class="mandala mandala-left">
+            <img src="./mandalaOne.webp" alt="Decorative Mandala">
+        </div>
+        <div class="mandala mandala-right">
+            <img src="./mandalaTwo.webp" alt="Decorative Mandala">
+        </div>
+
+        <!-- Floating Petals Container -->
+        <div class="petals-container" id="petalsContainer"></div>
+
+        <!-- Radha Krishna Swing -->
+        <div class="swing-container">
+            <div class="swing-wrapper">
+                <div class="swing-image">
+                    <picture>
+                        <source media="(max-width: 550px)" srcset="./4.png">
+                        <img id="swing-img" src="./4.png" alt="Radha Krishna on Swing">
+                    </picture>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <p class="invitation-intro animate-text">
+                Together with their families<br>
+            </p>
+
+            <h1 class="couple-names animate-text">Kovendhan & Swetha</h1>
+            <p class="invitation-intro animate-text">
+                Invite you to celebrate their<br>marriage
+            </p>
+            <div class="divider animate-text"></div>
+
+            <div class="date-card animate-text">
+                <div class="date-left">Wednesday</div>
+                <div class="divider divider-vertical" aria-hidden="true"></div>
+                <div class="date-center">
+                    <div class="month">January</div>
+                    <div class="day">28</div>
+                    <div class="year">2026</div>
+                </div>
+                <div class="divider divider-vertical" aria-hidden="true"></div>
+                <div class="date-right">9.30 AM - 10.30 AM</div>
+            </div>
+
+            <h2 class="venue-name animate-text">RAS Periyanayagi Vilas</h2>
+            
+            <p class="venue-address animate-text">
+                Sakkaraipadithurai,Kumbakonam
+            </p>
+
+            <div class="decorative-frame animate-text">
+                <div class="buttons-container">
+                    <button class="btn" id="rsvpBtn" onclick="openCalendarEvent(event)">Save the Date</button>
+                    <a href="https://maps.app.goo.gl/JgDtZ3J6acVTqRHq5" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn"
+                       id="directionsBtn">Get Directions</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section with Swing and Flowers -->
+        <div class="bottom-section">
+            <!-- Flower Background -->
+            <div class="flower-background">
+                <img src="./flower-background.webp" alt="Floral Decoration">
+            </div>
+            <!-- PNG Petals Wind Animation -->
+            <div class="bottom-petals-container" id="bottomPetalsContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // Simple analytics wrapper (GA4 gtag support)
+        function sendAnalyticsEvent(name, params = {}) {
+            if (typeof gtag === 'function') {
+                gtag('event', name, params);
+            } else {
+                console.log('Analytics event (gtag not initialized):', name, params);
+            }
+        }
+
+        // Add to calendar instead of RSVP form
+        function openCalendarEvent(event) {
+            event.preventDefault();
+            const ua = navigator.userAgent || navigator.vendor || '';
+            const isAndroid = /android/i.test(ua);
+
+            if (isAndroid) {
+                const gcalUrl = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Kovendhan+%26+Swetha+Marriage&dates=20260123T133000Z/20260123T150000Z&details=Marriage';
+                sendAnalyticsEvent('rsvp_click', { method: 'google_calendar', platform: 'android' });
+                window.open(gcalUrl, '_blank');
+                return;
+            }
+
+            sendAnalyticsEvent('rsvp_click', { method: 'ics_download', platform: isIOS() ? 'ios' : 'desktop' });
+
+            const start = '20260128T093000';
+            const end = '20260128T103000';
+            const ics = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//KovendhanSwetha//Marriage//EN',
+                'CALSCALE:GREGORIAN',
+                'BEGIN:VEVENT',
+                'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+                'DTSTART:' + start,
+                'DTEND:' + end,
+                'SUMMARY:Kovendhan & Swetha - Marriage Ceremony',
+                'LOCATION:RAS Periyanayagi Vilas,Sakkaraipadithurai,Kumbakonam',
+                'DESCRIPTION:Join us to celebrate Kovendhan & Swetha\'s Marriage.',
+                'BEGIN:VALARM',
+                'TRIGGER:-P1D',
+                'ACTION:DISPLAY',
+                'DESCRIPTION:Reminder',
+                'END:VALARM',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\\r\\n');
+
+            const blob = new Blob([ics], { type: 'text/calendar' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'Kovendhan-Swetha-Marriage.ics';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+
+        // Helper to detect iOS
+        function isIOS() {
+            const ua = navigator.userAgent || navigator.vendor || '';
+            return /iPad|iPhone|iPod/.test(ua);
+        }
+
+        function isAndroid() {
+            const ua = navigator.userAgent || navigator.vendor || '';
+            return /android/i.test(ua);
+        }
+
+        const NAV_BUTTON_THRESHOLD = 90; // px difference that suggests the three-button nav bar is consuming space
+        let maxViewportHeight = 0;
+        let navResizeTimer = null;
+
+        function getViewportHeight() {
+            const vv = window.visualViewport;
+            return Math.round((vv && vv.height) ? vv.height : window.innerHeight || 0);
+        }
+
+        function updateAndroidNavButtonClass() {
+            if (!isAndroid()) {
+                document.body.classList.remove('android-nav-buttons');
+                return;
+            }
+
+            maxViewportHeight = Math.max(maxViewportHeight, getViewportHeight());
+            const screenHeight = Math.max(window.screen?.availHeight || 0, window.screen?.height || 0);
+            const heightDiff = screenHeight && maxViewportHeight ? screenHeight - maxViewportHeight : 0;
+            const hasNavButtons = heightDiff > NAV_BUTTON_THRESHOLD;
+            document.body.classList.toggle('android-nav-buttons', hasNavButtons);
+        }
+
+        function initAndroidNavButtonAdjustments() {
+            maxViewportHeight = getViewportHeight();
+
+            const debouncedUpdate = () => {
+                clearTimeout(navResizeTimer);
+                navResizeTimer = setTimeout(updateAndroidNavButtonClass, 80);
+            };
+
+            debouncedUpdate();
+            window.addEventListener('resize', debouncedUpdate);
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener('resize', debouncedUpdate);
+            }
+
+            // Sample again after the URL bar collapses to avoid false positives.
+            setTimeout(updateAndroidNavButtonClass, 500);
+            setTimeout(updateAndroidNavButtonClass, 1500);
+        }
+
+        function shouldEnableSmallScreenScroll() {
+            const dpr = window.devicePixelRatio || 1;
+            const screenWidth = Math.min(window.screen?.width || 0, window.innerWidth || 0);
+            const screenHeight = Math.max(window.screen?.height || 0, window.innerHeight || 0);
+
+            // iPhone SE (1st gen) ~374x667 dpr 2, Moto G4 ~360x640 dpr 2
+            const smallWidth = screenWidth <= 374;
+            const smallHeight = screenHeight <= 667;
+            return dpr >= 2 && smallWidth && smallHeight;
+        }
+
+        function applySmallScreenScrollMode() {
+            const shouldEnable = shouldEnableSmallScreenScroll();
+            document.documentElement.classList.toggle('enable-scroll', shouldEnable);
+            document.body.classList.toggle('enable-scroll', shouldEnable);
+        }
+
+        // Page load animation trigger
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('page-loaded');
+            initAndroidNavButtonAdjustments();
+            applySmallScreenScrollMode();
+            
+            // Track Get Directions clicks
+            const directionsBtn = document.getElementById('directionsBtn');
+            if (directionsBtn) {
+                directionsBtn.addEventListener('click', function() {
+                    sendAnalyticsEvent('get_directions_click', { method: 'maps_link' });
+                });
+            }
+            
+            // Create floating petals
+            createPetals();
+            
+            // Parallax effect on scroll
+            initParallax();
+            
+            // Bottom PNG petals
+            if (typeof createBottomPetals === 'function') {
+                createBottomPetals();
+            }
+
+            // Hide loader when all images are loaded
+            handlePageLoader();
+        });
+
+        // Loader handling: wait for all images
+        function handlePageLoader() {
+            const loader = document.getElementById('pageLoader');
+            if (!loader) return;
+
+            const images = Array.from(document.images);
+            if (images.length === 0) {
+                hideLoader(loader);
+                return;
+            }
+
+            let loaded = 0;
+            const total = images.length;
+
+            const checkDone = () => {
+                loaded += 1;
+                if (loaded >= total) hideLoader(loader);
+            };
+
+            images.forEach(img => {
+                if (img.complete && img.naturalWidth !== 0) {
+                    checkDone();
+                } else {
+                    img.addEventListener('load', checkDone, { once: true });
+                    img.addEventListener('error', checkDone, { once: true });
+                }
+            });
+
+            // Fallback timeout
+            setTimeout(() => hideLoader(loader), 5000);
+        }
+
+        function hideLoader(loader) {
+            loader.classList.add('hidden');
+        }
+
+        // Create floating petals
+        function createPetals() {
+            const container = document.getElementById('petalsContainer');
+            const invitation = document.getElementById('invitation');
+            const colors = ['#f5c6d0', '#e8a0aa', '#f8d7da', '#fce4e8', '#f0b8c0'];
+            
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    createSinglePetal(invitation, colors);
+                }, i * 2000);
+            }
+            
+            setInterval(() => {
+                createSinglePetal(invitation, colors);
+            }, 3000);
+        }
+
+        function createSinglePetal(container, colors) {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            
+            const startX = Math.random() * container.offsetWidth;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = 6 + Math.random() * 6;
+            const duration = 8 + Math.random() * 6;
+            
+            petal.style.cssText = `
+                left: ${startX}px;
+                top: -20px;
+                width: ${size}px;
+                height: ${size}px;
+                background: radial-gradient(ellipse at center, ${color} 0%, ${adjustColor(color, -20)} 100%);
+                animation: floatPetal ${duration}s ease-in-out forwards;
+            `;
+            
+            container.appendChild(petal);
+            
+            setTimeout(() => {
+                petal.remove();
+            }, duration * 1000);
+        }
+
+        function adjustColor(hex, amount) {
+            const num = parseInt(hex.slice(1), 16);
+            const r = Math.min(255, Math.max(0, (num >> 16) + amount));
+            const g = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + amount));
+            const b = Math.min(255, Math.max(0, (num & 0x0000FF) + amount));
+            return `#${(1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)}`;
+        }
+
+        // Parallax effect
+        function initParallax() {
+            const flowerBg = document.querySelector('.flower-background');
+            let ticking = false;
+            
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        const scrolled = window.pageYOffset;
+                        const rate = scrolled * 0.15;
+                        
+                        if (flowerBg) {
+                            flowerBg.style.transform = `translateX(-50%) translateY(${rate}px)`;
+                        }
+                        
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        }
+
+        // Touch device detection for hover effects
+        if ('ontouchstart' in window) {
+            document.body.classList.add('touch-device');
+        }
+
+        // PNG Petals Wind Animation
+        function createBottomPetals() {
+            const container = document.getElementById('bottomPetalsContainer');
+            if (!container) return;
+            const petalCount = 10;
+            const petalImages = Array.from({length: petalCount}, (_, i) => `./petals/${i+1}.webp`);
+
+            function randomBetween(a, b) {
+                return a + Math.random() * (b - a);
+            }
+
+            function animatePetal(petal, startX, endX, endY, rotateStart, rotateEnd, duration, delay) {
+                petal.style.left = `${startX}px`;
+                petal.style.bottom = `0px`;
+                petal.style.opacity = '0';
+                petal.style.transform = `rotate(${rotateStart}deg)`;
+
+                setTimeout(() => {
+                    petal.style.transition = `transform ${duration}s cubic-bezier(.4,.7,.2,1), opacity 1s`;
+                    petal.style.opacity = '1';
+                    petal.style.filter = 'drop-shadow(0 6px 10px rgba(0,0,0,0.12))';
+                    petal.style.transform = `translate(${endX - startX}px, -${endY}px) rotate(${rotateEnd}deg)`;
+                    setTimeout(() => {
+                        petal.style.opacity = '0';
+                        setTimeout(() => {
+                            petal.remove();
+                        }, 1000);
+                    }, duration * 1000);
+                }, delay * 1000);
+            }
+
+            function spawnPetal() {
+                const imgSrc = petalImages[Math.floor(Math.random() * petalImages.length)];
+                const petal = document.createElement('img');
+                petal.className = 'bottom-petal';
+                petal.src = imgSrc;
+                petal.alt = 'Petal';
+
+                const screenW = container.offsetWidth;
+                const screenH = container.offsetHeight;
+                const size = Math.floor(randomBetween(9, 21));
+                petal.style.width = `${size}px`;
+                petal.style.height = 'auto';
+
+                const isLeftToRight = Math.random() > 0.5;
+                let startX, endX;
+                
+                if (isLeftToRight) {
+                    startX = Math.floor(randomBetween(-50, -20));
+                    endX = screenW + Math.floor(randomBetween(20, 50));
+                } else {
+                    startX = screenW + Math.floor(randomBetween(20, 50));
+                    endX = Math.floor(randomBetween(-50, -20));
+                }
+                
+                const endY = randomBetween(60, 220);
+                const rotateStart = randomBetween(-40, 40);
+                const rotateEnd = rotateStart + randomBetween(-180, 180);
+                const duration = randomBetween(5, 10);
+                const delay = randomBetween(0, 0.5);
+                
+                const isFrontPetal = Math.random() > 0.5;
+                petal.style.zIndex = isFrontPetal ? 20 : 9;
+
+                container.appendChild(petal);
+                animatePetal(petal, startX, endX, endY, rotateStart, rotateEnd, duration, delay);
+            }
+
+            for (let i = 0; i < 22; i++) {
+                setTimeout(spawnPetal, i * 140);
+            }
+
+            setInterval(() => {
+                const batch = Math.random() < 0.5 ? 3 : 2;
+                for (let i = 0; i < batch; i++) {
+                    setTimeout(spawnPetal, i * 100);
+                }
+            }, 350);
+
+            window.addEventListener('resize', () => {});
+        }
+    </script>
+</body>
+</html>
